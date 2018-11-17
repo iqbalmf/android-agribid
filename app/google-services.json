@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "905137768950",
+    "firebase_url": "https://agribid-f2b3c.firebaseio.com",
+    "project_id": "agribid-f2b3c",
+    "storage_bucket": "agribid-f2b3c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905137768950:android:a715fa1cd7259092",
+        "android_client_info": {
+          "package_name": "net.iqbalfauzan.agribid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905137768950-4gr8jklnncne5jq1s612iei88m91bn6j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.iqbalfauzan.agribid",
+            "certificate_hash": "da02665314fd0c02122ae213896726b7575a573c"
+          }
+        },
+        {
+          "client_id": "905137768950-omu7b37if3lobmanrvmar5mmojsgov8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA28vqrfURRjz7c13ucnYz-4Rh0D9fx-s4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "905137768950-omu7b37if3lobmanrvmar5mmojsgov8u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

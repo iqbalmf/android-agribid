@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AgriBid</string>
+    <string name="action_home">Beranda</string>
+    <string name="action_cart">Belanja</string>
+    <string name="action_akun">Akun</string>
+    <string name="textlogin">Silahkan Masuk melalui akun google anda</string>
 </resources>
