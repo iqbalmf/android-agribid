@@ -16,6 +16,8 @@ import net.iqbalfauzan.agribid.fragment.FragmentTwo;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//teeeessssss
+
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_navigation)
     BottomNavigationView bottomNavigationView;
