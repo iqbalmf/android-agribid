@@ -12,4 +12,18 @@ public class LoginStatus {
             return null;
         }
     }
+    public String getName(){
+        if (user!= null){
+            return user.getDisplayName();
+        }else {
+            return null;
+        }
+    }
+    public String getUID(){
+        if (user!= null){
+            return user.getUid();
+        }else {
+            return null;
+        }
+    }
 }
