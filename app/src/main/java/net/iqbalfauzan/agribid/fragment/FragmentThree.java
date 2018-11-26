@@ -43,11 +43,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentThree extends Fragment implements View.OnClickListener {
-
-    @BindView(R.id.butLogin)
-    SignInButton butLogin;
-    @BindView(R.id.layout_login)
-    RelativeLayout layoutLogin;
     @BindView(R.id.layoutLogged)
     RelativeLayout layoutLogged;
     @BindView(R.id.listMenu)
@@ -67,7 +62,6 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_three, container, false);
         ButterKnife.bind(this, view);
-        butLogin.setOnClickListener(this);
         textEdit.setOnClickListener(this);
         titles.add("Bagikan Aplikasi");
         titles.add("Beri Rating");
@@ -100,7 +94,7 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
                         pref1.edit().clear().apply();
                         pref2.edit().clear().apply();
                         FirebaseAuth.getInstance().signOut();
-                        onResume();
+                        getActivity().finish();
                         break;
                 }
             }
@@ -130,31 +124,10 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getStatus();
-        Toast.makeText(getActivity(), "Silahkan Refresh", Toast.LENGTH_SHORT).show();
-    }
-    private void getStatus(){
-        String email = loginStatus.getEmail();
-        String namaUser = loginStatus.getName();
-        if (email == null){
-            layoutLogin.setVisibility(View.VISIBLE);
-        }else {
-            layoutLogged.setVisibility(View.VISIBLE);
-            textEmail.setText(email);
-            textNama.setText(namaUser);
-
-        }
-    }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.butLogin:
-                startActivity(new Intent(getActivity(), LoginActivity.class));
-                break;
             case R.id.textEdit:
                 break;
         }

@@ -86,7 +86,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     userMail = user.getEmail();
                     userName = user.getDisplayName();
                     userUid = user.getUid();
-                    postSignUp();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    //postSignUp();
                 } else {
                     // User is signed out
                     Log.d("LoginActivity", "onAuthStateChanged:signed_out");
@@ -151,6 +152,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         }else {
                             Log.d("TAG", "signInWithCredential:onComplete:" + task.isSuccessful());
                             googleApiClient.clearDefaultAccountAndReconnect();
+                            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+                            finish();
 
                         }
                     }
@@ -171,7 +174,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    postSignIn();
+                    //postSignIn();
                 }else {
                     Toast.makeText(LoginActivity.this, "ERROR SIGNUP", Toast.LENGTH_SHORT).show();
                 }
