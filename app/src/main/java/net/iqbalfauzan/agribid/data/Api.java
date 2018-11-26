@@ -24,15 +24,9 @@ public interface Api {
     Call<ResponseBody> getLahan(@Header("Authorization") String auth);
 
     @FormUrlEncoded
-    @POST("/user/signUp")
-    Call<ResponseBody> signUp(@Header("Content-Type") String content_type,
+    @POST("/user/storeUser")
+    Call<ResponseBody> storeUser(@Header("Content-Type") String content_type,
                               @Field("email") String email,
                               @Field("nama") String nama,
                               @Field("noTelp") String noTelp);
-
-    @FormUrlEncoded
-    @POST("/user/signIn")
-    Call<ResponseBody> signIn(@Header("Content-Type") String content_type,
-                              @Field("email") String email,
-                              @Field("password") String password);
 }

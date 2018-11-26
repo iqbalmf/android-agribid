@@ -57,12 +57,17 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
     LoginStatus loginStatus = new LoginStatus();
     Api mApi = AgriBidClientBuilder.getAPIService();
     DataHeader dataHeader = new DataHeader();
+    String email, nama;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_three, container, false);
         ButterKnife.bind(this, view);
         textEdit.setOnClickListener(this);
+        nama = loginStatus.getName();
+        email = loginStatus.getEmail();
+        textNama.setText(nama);
+        textEmail.setText(email);
         titles.add("Bagikan Aplikasi");
         titles.add("Beri Rating");
         titles.add("Bantuan & Saran");

@@ -2,17 +2,68 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/listTanaman"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textInvest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Investasi"
+                    android:textColor="@color/hitam"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/textMoreInvest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="More"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/hitam"
+                    android:textAllCaps="true"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list_invest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textInvest"
+                    android:scrollbars="horizontal"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/textLelang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Lelang"
+                    android:textColor="@color/hitam"
+                    android:textAllCaps="true"/>
+                <TextView
+                    android:id="@+id/textMoreLelang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="More"
+                    android:layout_alignParentRight="true"
+                    android:textColor="@color/hitam"
+                    android:textAllCaps="true"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/list_lelang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textLelang"
+                    android:scrollbars="horizontal"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/butAddTanaman"
         android:layout_width="wrap_content"

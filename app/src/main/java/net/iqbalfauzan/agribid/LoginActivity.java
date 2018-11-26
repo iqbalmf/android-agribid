@@ -53,16 +53,12 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private FirebaseAuth mFirebaseAuth;
     private static final int RC_SIGN_IN = 9001;
     private FirebaseAuth.AuthStateListener authlistener;
-    Api mApi = AgriBidClientBuilder.getAPIService();
-    LoginStatus loginStatus = new LoginStatus();
-    String userMail, userUid, userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         if (getSupportActionBar()!= null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Login");
         }
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -83,11 +79,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    userMail = user.getEmail();
-                    userName = user.getDisplayName();
-                    userUid = user.getUid();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    //postSignUp();
+                    finish();
+
                 } else {
                     // User is signed out
                     Log.d("LoginActivity", "onAuthStateChanged:signed_out");
@@ -152,7 +146,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         }else {
                             Log.d("TAG", "signInWithCredential:onComplete:" + task.isSuccessful());
                             googleApiClient.clearDefaultAccountAndReconnect();
-                            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+                            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             finish();
 
                         }
@@ -161,97 +155,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 });
 
     }
-    private void postSignUp(){
-        final ProgressDialog load = ProgressDialog.show(LoginActivity.this, null,"Mohon Tunggu...",true, false);
-        Log.i("TAG", "postSignUp: "+userMail+" "+userName);
-        mApi.signUp("application/json",userMail, userName, "+62").enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                load.dismiss();
-                if (response.isSuccessful()){
-                    try {
-                        Toast.makeText(LoginActivity.this, response.body().string(), Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //postSignIn();
-                }else {
-                    Toast.makeText(LoginActivity.this, "ERROR SIGNUP", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                load.dismiss();
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void postSignIn(){
-        final ProgressDialog load = ProgressDialog.show(LoginActivity.this, null,"Logging in...",true, false);
-        Log.i("TAG", "postSignIn: "+userMail+" "+userUid);
-        mApi.signIn("application/json",userMail, userUid).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                load.dismiss();
-                if (response.isSuccessful()){
-                    try {
-                        Toast.makeText(LoginActivity.this, response.body().string(), Toast.LENGTH_SHORT).show();
-                        getUserSignIn(response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }else {
-                    Toast.makeText(LoginActivity.this, "ERRORSIGNIN", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                load.dismiss();
-                Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void getUserSignIn(String json){
-        try {
-            JSONObject object = new JSONObject(json);
-            String token = object.getString("token");
-            JSONObject object1 = object.getJSONObject("user");
-            String user_uid = object1.getString("_id");
-            Log.i("TAG", "getUserSignIn: "+user_uid);
-            Log.i("TAG", "getUserSignIn: "+token);
-            storeHeaderAuth(token, user_uid);
-            finish();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         Toast.makeText(LoginActivity.this, "Silahkan ulangi beberapa saat lagi", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    private void storeHeaderAuth(String headerAuth, String idUser) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.HEADER_AUTH, 0);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(Config.HEADER_AUTH, headerAuth);
-        editor.apply();
-
-        SharedPreferences prefUserUid = getApplicationContext().getSharedPreferences(Config.ID_USER, 0);
-        SharedPreferences.Editor editorUid = prefUserUid.edit();
-        editorUid.putString(Config.ID_USER, headerAuth);
-        editorUid.apply();
-    }
 }

@@ -7,14 +7,18 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import net.iqbalfauzan.agribid.R;
+import net.iqbalfauzan.agribid.adapter.AdapterInvest;
+import net.iqbalfauzan.agribid.adapter.AdapterLelang;
 import net.iqbalfauzan.agribid.data.AgriBidClientBuilder;
 import net.iqbalfauzan.agribid.data.Api;
 import net.iqbalfauzan.agribid.data.DataHeader;
@@ -24,6 +28,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,66 +39,52 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FragmentOne extends Fragment implements View.OnClickListener {
-    @BindView(R.id.swipeRefresh)
-    SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.butAddTanaman)
-    FloatingActionButton butAddTanaman;
-    @BindView(R.id.listTanaman)
-    RecyclerView listTanaman;
+    @BindView(R.id.list_invest) RecyclerView listInvest;
+    @BindView(R.id.list_lelang) RecyclerView listLelang;
     Api mApi = AgriBidClientBuilder.getAPIService();
     DataHeader dataHeader = new DataHeader();
+    List<String> listInvests = new ArrayList<>();
+    List<String> listLelangs = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_one, container, false);
         ButterKnife.bind(this, view);
-        listTanaman.setLayoutManager(new GridLayoutManager(getActivity(), 2));
-        listTanaman.setHasFixedSize(true);
-        butAddTanaman.setOnClickListener(this);
-        getLahan();
+        listInvest.setHasFixedSize(false);
+        listInvest.setNestedScrollingEnabled(false);
+        listInvest.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+        listLelang.setHasFixedSize(false);
+        listLelang.setNestedScrollingEnabled(false);
+        listLelang.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
+
+        listInvests.add("satu");
+        listInvests.add("dua");
+        listInvests.add("tiga");
+        listInvests.add("empat");
+        listInvests.add("lima");
+
+        listLelangs.add("satu");
+        listLelangs.add("dua");
+        listLelangs.add("tiga");
+        listLelangs.add("empat");
+        listLelangs.add("lima");
+
+        AdapterInvest adapterInvest = new AdapterInvest(getActivity(), listInvests);
+        listInvest.setAdapter(adapterInvest);
+        adapterInvest.notifyDataSetChanged();
+
+        AdapterLelang adapterLelang = new AdapterLelang(getActivity(), listLelangs);
+        listLelang.setAdapter(adapterLelang);
+        adapterLelang.notifyDataSetChanged();
         return view;
     }
-    private void getLahan(){
-        mApi.getLahan("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YmY0MmFlN2FkOTA1NTAwMTY4NDhiOWYiLCJpYXQiOjE1NDI3Mjg0ODI0MDN9.AkT8mQzy0zj_NBA8XV6S7OYXknSJ73-dA7bNkOL7R7k").enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()){
-                    try {
-                        showLahan(response.body().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }else {
-                    Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void showLahan(String json){
-        try {
-            JSONArray jsonArray = new JSONArray(json);
-            if (jsonArray.length() > 0){
-                for (int i=0; i<jsonArray.length();i++){
-                    JSONObject object = jsonArray.getJSONObject(i);
-                    String alamat = object.getString("alamat");
-                    Log.i("TAG", "showLahan: "+alamat);
-                }
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.butAddTanaman:
+            case R.id.textMoreInvest:
+                break;
+            case R.id.textMoreLelang:
                 break;
         }
     }
