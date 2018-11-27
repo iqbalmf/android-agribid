@@ -1,6 +1,8 @@
 package net.iqbalfauzan.agribid;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +28,21 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import net.iqbalfauzan.agribid.data.AgriBidClientBuilder;
+import net.iqbalfauzan.agribid.data.Api;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     @BindView(R.id.butLogin)
@@ -44,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         if (getSupportActionBar()!= null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("Login");
         }
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -65,7 +79,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
+
                 } else {
                     // User is signed out
                     Log.d("LoginActivity", "onAuthStateChanged:signed_out");
@@ -130,7 +146,9 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         }else {
                             Log.d("TAG", "signInWithCredential:onComplete:" + task.isSuccessful());
                             googleApiClient.clearDefaultAccountAndReconnect();
+                            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                             finish();
+
                         }
                     }
 
@@ -143,13 +161,4 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
         Toast.makeText(LoginActivity.this, "Silahkan ulangi beberapa saat lagi", Toast.LENGTH_LONG).show();
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home:
-                onBackPressed();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 }

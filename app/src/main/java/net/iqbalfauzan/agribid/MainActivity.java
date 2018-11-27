@@ -37,18 +37,29 @@ public class MainActivity extends AppCompatActivity {
                 switch (id){
                     case R.id.action_home:
                         fragment = new FragmentOne();
-                        break;
+                        loadFragment(fragment);
+                        return true;
                     case R.id.action_cart:
                         fragment = new FragmentTwo();
-                        break;
+                        loadFragment(fragment);
+                        return true;
                     case R.id.action_akun:
                         fragment = new FragmentThree();
-                        break;
+                        loadFragment(fragment);
+                        return true;
                 }
-                FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.main_container, fragment).commit();
-                return true;
+                return false;
             }
         });
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_container, new FragmentOne());
+        transaction.commit();
+
+    }
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.main_container, fragment);
+        transaction.commit();
     }
 }
