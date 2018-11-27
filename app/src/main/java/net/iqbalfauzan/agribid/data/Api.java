@@ -23,6 +23,18 @@ public interface Api {
     @GET("/lahan")
     Call<ResponseBody> getLahan(@Header("Authorization") String auth);
 
+    @GET("/invest")
+    Call<ResponseBody> getInvest(@Header("Authorization") String auth);
+
+    @GET("/invest/lahan/{id_lahan}")
+    Call<ResponseBody> getDetailInvest(@Path("id_user") String id_user);
+
+    @GET("/lelang/lahan/{lahan_id}")
+    Call<ResponseBody> getDetailLelang(@Path("id_user") String id_user);
+
+    @GET("/lelang")
+    Call<ResponseBody> getLelang(@Header("Authorization") String auth);
+
     @FormUrlEncoded
     @POST("/user/storeUser")
     Call<ResponseBody> storeUser(@Header("Content-Type") String content_type,

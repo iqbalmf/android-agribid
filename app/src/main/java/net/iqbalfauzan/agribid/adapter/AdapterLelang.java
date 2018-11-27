@@ -6,17 +6,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.iqbalfauzan.agribid.R;
+import net.iqbalfauzan.agribid.model.LelangModel;
 
 import java.util.List;
 
 public class AdapterLelang extends RecyclerView.Adapter<AdapterLelang.Holder> {
     private Context context;
-    private List<String> lelangs;
+    private List<LelangModel> lelangs;
 
-    public AdapterLelang(Context context, List<String> lelangs) {
+    public AdapterLelang(Context context, List<LelangModel> lelangs) {
         this.context = context;
         this.lelangs = lelangs;
     }
@@ -30,7 +32,7 @@ public class AdapterLelang extends RecyclerView.Adapter<AdapterLelang.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
-        holder.invest.setText(lelangs.get(i));
+        holder.invest.setText(""+lelangs.get(i).getHargaPasang());
     }
 
     @Override
@@ -40,9 +42,11 @@ public class AdapterLelang extends RecyclerView.Adapter<AdapterLelang.Holder> {
 
     public class Holder extends RecyclerView.ViewHolder {
         TextView invest;
+        ImageView imageBackground;
         public Holder(@NonNull View itemView) {
             super(itemView);
-            invest = itemView.findViewById(R.id.invest);
+            invest = itemView.findViewById(R.id.textBiaya);
+            imageBackground = itemView.findViewById(R.id.imageBackground);
         }
     }
 }
