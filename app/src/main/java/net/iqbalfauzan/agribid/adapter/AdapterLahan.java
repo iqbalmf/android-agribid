@@ -12,16 +12,16 @@ import android.widget.TextView;
 import com.bumptech.glide.RequestManager;
 
 import net.iqbalfauzan.agribid.R;
-import net.iqbalfauzan.agribid.model.InvestModel;
+import net.iqbalfauzan.agribid.model.LahanModel;
 
 import java.util.List;
 
-public class AdapterInvest extends RecyclerView.Adapter<AdapterInvest.Holder> {
+public class AdapterLahan extends RecyclerView.Adapter<AdapterLahan.Holder> {
     private Context context;
-    private List<InvestModel> invests;
+    private List<LahanModel> invests;
     private RequestManager glide;
 
-    public AdapterInvest(Context context, List<InvestModel> invests, RequestManager glide) {
+    public AdapterLahan(Context context, List<LahanModel> invests, RequestManager glide) {
         this.context = context;
         this.invests = invests;
         this.glide = glide;
@@ -29,14 +29,14 @@ public class AdapterInvest extends RecyclerView.Adapter<AdapterInvest.Holder> {
 
     @NonNull
     @Override
-    public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+    public AdapterLahan.Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(context).inflate(R.layout.layout_invest, viewGroup, false);
         return new Holder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder holder, int i) {
-        holder.invest.setText(""+invests.get(i).getBiayaInvest());
+    public void onBindViewHolder(@NonNull AdapterLahan.Holder holder, int i) {
+        holder.invest.setText(""+invests.get(i).getHargaAwalLelang());
         glide.load(invests.get(i).getFoto()).into(holder.imageBackground);
     }
 

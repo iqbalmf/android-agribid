@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.RequestManager;
+
 import net.iqbalfauzan.agribid.R;
 import net.iqbalfauzan.agribid.model.LelangModel;
 
@@ -17,10 +19,12 @@ import java.util.List;
 public class AdapterLelang extends RecyclerView.Adapter<AdapterLelang.Holder> {
     private Context context;
     private List<LelangModel> lelangs;
+    private RequestManager glide;
 
-    public AdapterLelang(Context context, List<LelangModel> lelangs) {
+    public AdapterLelang(Context context, List<LelangModel> lelangs, RequestManager glide) {
         this.context = context;
         this.lelangs = lelangs;
+        this.glide = glide;
     }
 
     @NonNull
@@ -33,6 +37,8 @@ public class AdapterLelang extends RecyclerView.Adapter<AdapterLelang.Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         holder.invest.setText(""+lelangs.get(i).getHargaPasang());
+        glide.load(lelangs.get(i).getFoto()).into(holder.imageBackground);
+
     }
 
     @Override

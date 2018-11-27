@@ -19,9 +19,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.SignInButton;
 import com.google.firebase.auth.FirebaseAuth;
 
+import net.iqbalfauzan.agribid.AboutActivity;
 import net.iqbalfauzan.agribid.Config;
 import net.iqbalfauzan.agribid.LoginActivity;
 import net.iqbalfauzan.agribid.LoginStatus;
@@ -57,7 +59,7 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
     LoginStatus loginStatus = new LoginStatus();
     Api mApi = AgriBidClientBuilder.getAPIService();
     DataHeader dataHeader = new DataHeader();
-    String email, nama;
+    String email, nama, foto;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
         textEdit.setOnClickListener(this);
         nama = loginStatus.getName();
         email = loginStatus.getEmail();
+        foto = loginStatus.getFoto();
+        Glide.with(this).load(foto).into(imageProfil);
         textNama.setText(nama);
         textEmail.setText(email);
         titles.add("Bagikan Aplikasi");
@@ -92,6 +96,7 @@ public class FragmentThree extends Fragment implements View.OnClickListener {
                     case 2:
                         break;
                     case 3:
+                        startActivity(new Intent(getActivity(), AboutActivity.class));
                         break;
                     case 4:
                         SharedPreferences pref1 = getActivity().getSharedPreferences(Config.HEADER_AUTH, 0);

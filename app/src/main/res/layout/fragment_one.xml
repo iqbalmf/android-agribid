@@ -11,6 +11,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+            </android.support.v4.view.ViewPager>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -62,6 +69,31 @@
                     android:layout_below="@id/textLelang"
                     android:scrollbars="horizontal"/>
             </RelativeLayout>
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/textLahan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lelang"
+        android:textColor="@color/hitam"
+        android:textAllCaps="true"/>
+    <TextView
+        android:id="@+id/textMoreLahan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More"
+        android:layout_alignParentRight="true"
+        android:textColor="@color/hitam"
+        android:textAllCaps="true"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/list_lahan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textLahan"
+        android:scrollbars="horizontal"/>
+</RelativeLayout>
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
     <android.support.design.widget.FloatingActionButton

@@ -35,6 +35,9 @@ public interface Api {
     @GET("/lelang")
     Call<ResponseBody> getLelang(@Header("Authorization") String auth);
 
+    @GET("/tanaman")
+    Call<ResponseBody> getTanaman(@Header("Authorization") String auth);
+
     @FormUrlEncoded
     @POST("/user/storeUser")
     Call<ResponseBody> storeUser(@Header("Content-Type") String content_type,
