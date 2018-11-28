@@ -115,7 +115,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         SharedPreferences prefUserUid = getApplicationContext().getSharedPreferences(Config.ID_USER, 0);
         SharedPreferences.Editor editorUid = prefUserUid.edit();
-        editorUid.putString(Config.ID_USER, headerAuth);
+        editorUid.putString(Config.ID_USER, idUser);
         editorUid.apply();
     }
 }

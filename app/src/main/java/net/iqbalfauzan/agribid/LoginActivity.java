@@ -30,6 +30,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 import net.iqbalfauzan.agribid.data.AgriBidClientBuilder;
 import net.iqbalfauzan.agribid.data.Api;
+import net.iqbalfauzan.agribid.data.DataHeader;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,6 +53,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     private GoogleApiClient googleApiClient;
     private FirebaseAuth mFirebaseAuth;
     private static final int RC_SIGN_IN = 9001;
+    DataHeader dataHeader = new DataHeader();
     private FirebaseAuth.AuthStateListener authlistener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +81,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                    finish();
+                    Log.i("TAG", "onAuthStateChanged: "+dataHeader.getAuthHeader(LoginActivity.this));
+                    if (dataHeader.getAuthHeader(LoginActivity.this) == null || dataHeader.getAuthHeader(LoginActivity.this).equalsIgnoreCase("")){
+                        startActivity(new Intent(LoginActivity.this, WelcomeActivity.class));
+                    }else {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    }
 
                 } else {
                     // User is signed out
@@ -146,9 +153,6 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                         }else {
                             Log.d("TAG", "signInWithCredential:onComplete:" + task.isSuccessful());
                             googleApiClient.clearDefaultAccountAndReconnect();
-                            startActivity(new Intent(LoginActivity.this, WelcomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK));
-                            finish();
-
                         }
                     }
 

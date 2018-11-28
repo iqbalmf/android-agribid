@@ -200,13 +200,13 @@ public class FragmentOne extends Fragment implements View.OnClickListener {
                         e.printStackTrace();
                     }
                 }else {
-                    Toast.makeText(getActivity(), "ERROR", Toast.LENGTH_SHORT).show();
+
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Toast.makeText(getActivity(), t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
         });
     }
