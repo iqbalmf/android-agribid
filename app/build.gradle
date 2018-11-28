@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'agribid'
+            keyPassword 'seedsjuara'
+            storeFile file('E:/PROJECT/Androidcode/AgriBid/agribid_keystore.jks')
+            storePassword 'seedsjuara'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "net.iqbalfauzan.agribid"
@@ -14,6 +22,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            signingConfig signingConfigs.config
+        }
+        debug {
+            debuggable true
         }
     }
 }
